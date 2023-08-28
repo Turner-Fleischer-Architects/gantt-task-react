@@ -86,7 +86,7 @@ export const TaskListTableDefault: React.FC<{
                 >
                   {expanderSymbol}
                 </div>
-                <div>{t.name}</div>
+                <div><input type='text' defaultValue={t.name} /></div>
               </div>
             </div>
             <div
@@ -106,6 +106,29 @@ export const TaskListTableDefault: React.FC<{
               }}
             >
               &nbsp;{toLocaleDateString(t.end, dateTimeOptions)}
+            </div>
+            <div
+              className={styles.taskListCell}
+              style={{
+                minWidth: rowWidth,
+                maxWidth: rowWidth,
+              }}
+            >
+              <textarea defaultValue={t.note} onChange={e => console.log(e.target.value)} />
+            </div>
+            <div
+              className={styles.taskListCell}
+              style={{
+                minWidth: rowWidth,
+                maxWidth: rowWidth,
+              }}
+            >
+              <select defaultValue={t.status}>
+                <option value={0}></option>
+                <option value={1}>Not Started</option>
+                <option value={2}>In Progress</option>
+                <option value={3}>Complete</option>
+              </select>
             </div>
           </div>
         );

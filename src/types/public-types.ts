@@ -16,6 +16,8 @@ export interface Task {
   name: string;
   start: Date;
   end: Date;
+  note: string;
+  status: number;
   /**
    * From 0 to 100
    */
