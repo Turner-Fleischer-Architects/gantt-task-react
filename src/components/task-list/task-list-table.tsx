@@ -3,23 +3,52 @@ import styles from "./task-list-table.module.css";
 import { Task } from "../../types/public-types";
 
 const localeDateStringCache = {};
-const toLocaleDateStringFactory =
+
+function formatDate(date: Date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
+// const toLocaleDateStringFactory =
+//   (locale: string) =>
+//   (date: Date, dateTimeOptions: Intl.DateTimeFormatOptions) => {
+//     const key = date.toString();
+//     let lds = localeDateStringCache[key];
+//     if (!lds) {
+//       lds = date.toLocaleDateString(locale, dateTimeOptions);
+//       localeDateStringCache[key] = lds;
+//     }
+//     return lds;
+//   };
+
+  const toLocaleDateStringFactory2 =
   (locale: string) =>
-  (date: Date, dateTimeOptions: Intl.DateTimeFormatOptions) => {
+  (date: Date) => {
     const key = date.toString();
     let lds = localeDateStringCache[key];
     if (!lds) {
-      lds = date.toLocaleDateString(locale, dateTimeOptions);
+      console.log(locale)
+      lds = formatDate(date);
       localeDateStringCache[key] = lds;
     }
     return lds;
   };
-const dateTimeOptions: Intl.DateTimeFormatOptions = {
-  weekday: "short",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
+
+// const dateTimeOptions: Intl.DateTimeFormatOptions = {
+//   weekday: "short",
+//   year: "numeric",
+//   month: "long",
+//   day: "numeric",
+// };
 
 export const TaskListTableDefault: React.FC<{
   rowHeight: number;
@@ -40,8 +69,13 @@ export const TaskListTableDefault: React.FC<{
   locale,
   onExpanderClick,
 }) => {
-  const toLocaleDateString = useMemo(
-    () => toLocaleDateStringFactory(locale),
+  // const toLocaleDateString = useMemo(
+  //   () => toLocaleDateStringFactory(locale),
+  //   [locale]
+  // );
+
+  const toLocaleDateString2 = useMemo(
+    () => toLocaleDateStringFactory2(locale),
     [locale]
   );
 
@@ -96,7 +130,8 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              &nbsp;{toLocaleDateString(t.start, dateTimeOptions)}
+              <input type="date" value={toLocaleDateString2(t.start)} />
+              {/* &nbsp;{toLocaleDateString(t.start, dateTimeOptions)}  */}
             </div>
             <div
               className={styles.taskListCell}
@@ -105,7 +140,8 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              &nbsp;{toLocaleDateString(t.end, dateTimeOptions)}
+              <input type="date" value={toLocaleDateString2(t.end)} />
+              {/* &nbsp;{toLocaleDateString(t.end, dateTimeOptions)} */}
             </div>
             <div
               className={styles.taskListCell}
