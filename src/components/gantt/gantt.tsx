@@ -321,48 +321,48 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   /**
    * Handles arrow keys events and transform it to new scroll
    */
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    let newScrollY = scrollY;
-    let newScrollX = scrollX;
-    let isX = true;
-    switch (event.key) {
-      case "Down": // IE/Edge specific value
-      case "ArrowDown":
-        newScrollY += rowHeight;
-        isX = false;
-        break;
-      case "Up": // IE/Edge specific value
-      case "ArrowUp":
-        newScrollY -= rowHeight;
-        isX = false;
-        break;
-      case "Left":
-      case "ArrowLeft":
-        newScrollX -= columnWidth;
-        break;
-      case "Right": // IE/Edge specific value
-      case "ArrowRight":
-        newScrollX += columnWidth;
-        break;
-    }
-    if (isX) {
-      if (newScrollX < 0) {
-        newScrollX = 0;
-      } else if (newScrollX > svgWidth) {
-        newScrollX = svgWidth;
-      }
-      setScrollX(newScrollX);
-    } else {
-      if (newScrollY < 0) {
-        newScrollY = 0;
-      } else if (newScrollY > ganttFullHeight - ganttHeight) {
-        newScrollY = ganttFullHeight - ganttHeight;
-      }
-      setScrollY(newScrollY);
-    }
-    setIgnoreScrollEvent(true);
-  };
+  // const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  //   event.preventDefault();
+  //       let newScrollY = scrollY;
+  //   let newScrollX = scrollX;
+  //   let isX = true;
+  //   switch (event.key) {
+  //     case "Down": // IE/Edge specific value
+  //     case "ArrowDown":
+  //       newScrollY += rowHeight;
+  //       isX = false;
+  //       break;
+  //     case "Up": // IE/Edge specific value
+  //     case "ArrowUp":
+  //       newScrollY -= rowHeight;
+  //       isX = false;
+  //       break;
+  //     case "Left":
+  //     case "ArrowLeft":
+  //       newScrollX -= columnWidth;
+  //       break;
+  //     case "Right": // IE/Edge specific value
+  //     case "ArrowRight":
+  //       newScrollX += columnWidth;
+  //       break;
+  //   }
+  //   if (isX) {
+  //     if (newScrollX < 0) {
+  //       newScrollX = 0;
+  //     } else if (newScrollX > svgWidth) {
+  //       newScrollX = svgWidth;
+  //     }
+  //     setScrollX(newScrollX);
+  //   } else {
+  //     if (newScrollY < 0) {
+  //       newScrollY = 0;
+  //     } else if (newScrollY > ganttFullHeight - ganttHeight) {
+  //       newScrollY = ganttFullHeight - ganttHeight;
+  //     }
+  //     setScrollY(newScrollY);
+  //   }
+  //   setIgnoreScrollEvent(true);
+  // };
 
   /**
    * Task select event
@@ -453,7 +453,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     <div>
       <div
         className={styles.wrapper}
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown} // TODO: Handle event on input and wrapper div seperately
         tabIndex={0}
         ref={wrapperRef}
       >
