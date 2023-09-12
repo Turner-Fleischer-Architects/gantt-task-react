@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import styles from "./task-list-table.module.css";
 import { Task } from "../../types/public-types";
+import { getProgressFromStatus } from "../../helpers/other-helper";
 
 const localeDateStringCache = {};
 
@@ -33,10 +34,10 @@ function formatDate(date: Date) {
   const toLocaleDateStringFactory2 =
   (locale: string) =>
   (date: Date) => {
+    locale = locale
     const key = date.toString();
     let lds = localeDateStringCache[key];
     if (!lds) {
-      console.log(locale)
       lds = formatDate(date);
       localeDateStringCache[key] = lds;
     }
@@ -60,6 +61,7 @@ export const TaskListTableDefault: React.FC<{
   selectedTaskId: string;
   setSelectedTask: (taskId: string) => void;
   onExpanderClick: (task: Task) => void;
+  updateTasks: (updatedTasks: Task[]) => void;
 }> = ({
   rowHeight,
   rowWidth,
@@ -68,6 +70,7 @@ export const TaskListTableDefault: React.FC<{
   fontSize,
   locale,
   onExpanderClick,
+  updateTasks
 }) => {
   // const toLocaleDateString = useMemo(
   //   () => toLocaleDateStringFactory(locale),
@@ -120,7 +123,7 @@ export const TaskListTableDefault: React.FC<{
                 >
                   {expanderSymbol}
                 </div>
-                <div><input type='text' defaultValue={t.name} /></div>
+                <div><input type='text' defaultValue={t.name} onChange={(e) => {t.name = e.target.value; updateTasks([...tasks])}} disabled={t.taskType === 'modelMilestone'} /></div>
               </div>
             </div>
             <div
@@ -130,7 +133,7 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <input type="date" value={toLocaleDateString2(t.start)} />
+              <input type="date" value={formatDate(t.start)} onChange={(e) => {t.start = new Date(`${e.target.value}T00:00:00`); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} />
               {/* &nbsp;{toLocaleDateString(t.start, dateTimeOptions)}  */}
             </div>
             <div
@@ -140,7 +143,7 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <input type="date" value={toLocaleDateString2(t.end)} />
+              <input type="date" value={toLocaleDateString2(t.end)} onChange={(e) => {t.end = new Date(`${e.target.value}T00:00:00`); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} />
               {/* &nbsp;{toLocaleDateString(t.end, dateTimeOptions)} */}
             </div>
             <div
@@ -150,7 +153,9 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <textarea defaultValue={t.note} onChange={e => console.log(e.target.value)} />
+              {t.taskType !== 'subMilestone' ? null: 
+                <textarea defaultValue={t.note} onChange={(e) => {t.note = e.target.value; updateTasks([...tasks])}} />
+              }
             </div>
             <div
               className={styles.taskListCell}
@@ -159,7 +164,7 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <select defaultValue={t.status}>
+              <select defaultValue={t.status} onChange={(e) => {t.status = Number(e.target.value) || 0; t.progress = getProgressFromStatus(t.status); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'}>
                 <option value={0}></option>
                 <option value={1}>Not Started</option>
                 <option value={2}>In Progress</option>

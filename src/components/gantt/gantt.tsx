@@ -4,6 +4,7 @@ import React, {
   useRef,
   useEffect,
   useMemo,
+  useCallback
 } from "react";
 import { ViewMode, GanttProps, Task } from "../../types/public-types";
 import { GridProps } from "../grid/grid";
@@ -200,7 +201,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     if (changedTask) {
       if (action === "delete") {
         setGanttEvent({ action: "" });
-        setBarTasks(barTasks.filter(t => t.id !== changedTask.id));
+        // setBarTasks(barTasks.filter(t => t.id !== changedTask.id));
+        wrapperSetBarTasks(barTasks.filter(t => t.id !== changedTask.id));
       } else if (
         action === "move" ||
         action === "end" ||
@@ -317,6 +319,49 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
       setIgnoreScrollEvent(false);
     }
   };
+
+    // make wrapper function to give child
+    const wrapperSetBarTasks = useCallback((newTasks: Task[]) => {
+      // let newBarTasks = val as BarTask[];
+
+      const [startDate, endDate] = ganttDateRange(
+        newTasks,
+        viewMode,
+        preStepsCount
+      );
+      let newDates = seedDates(startDate, endDate, viewMode);
+      if (rtl) {
+        newDates = newDates.reverse();
+        if (scrollX === -1) {
+          setScrollX(newDates.length * columnWidth);
+        }
+      }
+      setDateSetup({ dates: newDates, viewMode });
+  
+      setBarTasks(      
+        convertToBarTasks(
+        newTasks,
+        newDates,
+        columnWidth,
+        rowHeight,
+        taskHeight,
+        barCornerRadius,
+        handleWidth,
+        rtl,
+        barProgressColor,
+        barProgressSelectedColor,
+        barBackgroundColor,
+        barBackgroundSelectedColor,
+        projectProgressColor,
+        projectProgressSelectedColor,
+        projectBackgroundColor,
+        projectBackgroundSelectedColor,
+        milestoneBackgroundColor,
+        milestoneBackgroundSelectedColor
+      ));
+
+      
+    }, [setBarTasks]);
 
   /**
    * Handles arrow keys events and transform it to new scroll
@@ -448,6 +493,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     onExpanderClick: handleExpanderClick,
     TaskListHeader,
     TaskListTable,
+    updateTasks: wrapperSetBarTasks
   };
   return (
     <div>
@@ -457,7 +503,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
         tabIndex={0}
         ref={wrapperRef}
       >
-        {listCellWidth && <TaskList {...tableProps} />}
+        {listCellWidth && <TaskList {...tableProps} updateTasks={wrapperSetBarTasks}/>}
         <TaskGantt
           gridProps={gridProps}
           calendarProps={calendarProps}

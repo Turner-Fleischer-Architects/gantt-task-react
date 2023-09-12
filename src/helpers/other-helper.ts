@@ -59,3 +59,14 @@ export const sortTasks = (taskA: Task, taskB: Task) => {
     return 0;
   }
 };
+
+export function getProgressFromStatus(status: Number) {
+  switch (status) {
+    case 2:
+      return 50;
+    case 3:
+      return 100;
+    default:
+      return 0;
+  }
+}

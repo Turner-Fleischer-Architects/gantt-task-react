@@ -17,6 +17,7 @@ export interface Task {
   start: Date;
   end: Date;
   note: string;
+  taskType: string;
   status: number;
   /**
    * From 0 to 100
@@ -139,6 +140,7 @@ export interface StylingOption {
      */
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
+    updateTasks: (updatedTasks: Task[]) => void;
   }>;
 }
 
