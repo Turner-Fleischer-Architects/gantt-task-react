@@ -27,7 +27,7 @@ export const TaskListHeaderDefault: React.FC<{
             minWidth: rowWidth,
           }}
         >
-          &nbsp;Phase
+          &nbsp;Milestones
         </div>
         <div
           className={styles.ganttTable_HeaderSeparator}
