@@ -164,12 +164,14 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
+              {t.taskType !== 'subMilestone' ? null: 
               <select defaultValue={t.status} onChange={(e) => {t.status = Number(e.target.value) || 0; t.progress = getProgressFromStatus(t.status); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'}>
                 <option value={0}></option>
                 <option value={1}>Not Started</option>
                 <option value={2}>In Progress</option>
                 <option value={3}>Complete</option>
               </select>
+              }
             </div>
           </div>
         );
