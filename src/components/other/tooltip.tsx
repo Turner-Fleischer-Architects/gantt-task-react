@@ -121,6 +121,20 @@ export const StandardTooltipContent: React.FC<{
     fontSize,
     fontFamily,
   };
+
+  const getStatusText = (statusCode: Number) => {
+    switch (statusCode){
+      case 1:
+        return 'Not Started';
+      case 2:
+        return 'In Progress';
+      case 3:
+        return 'Complete';
+      default:
+        return '';
+    }
+  }
+
   return (
     <div className={styles.tooltipDefaultContainer} style={style}>
       <b style={{ fontSize: fontSize + 6 }}>{`${
@@ -137,8 +151,16 @@ export const StandardTooltipContent: React.FC<{
         )} day(s)`}</p>
       )}
 
-      <p className={styles.tooltipDefaultContainerParagraph}>
+      {/* <p className={styles.tooltipDefaultContainerParagraph}>
         {!!task.progress && `Progress: ${task.progress} %`}
+      </p> */}
+
+      <p className={styles.tooltipDefaultContainerParagraph}>
+        {!!task.status && `Status: ${getStatusText(task.status)}`}
+      </p>
+
+      <p className={styles.tooltipDefaultContainerParagraph}>
+        {!!task.note && `Note: ${task.note}`}
       </p>
     </div>
   );
