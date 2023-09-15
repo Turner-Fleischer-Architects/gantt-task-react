@@ -66,7 +66,7 @@ export const TaskListHeaderDefault: React.FC<{
             marginTop: headerHeight * 0.25,
           }}
         />
-        <div
+        {/* <div
           className={styles.ganttTable_HeaderItem}
           style={{
             minWidth: rowWidth,
@@ -88,7 +88,7 @@ export const TaskListHeaderDefault: React.FC<{
           }}
         >
           &nbsp;Status
-        </div>
+        </div> */}
       </div>
     </div>
   );

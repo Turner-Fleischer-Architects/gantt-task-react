@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import styles from "./task-list-table.module.css";
 import { Task } from "../../types/public-types";
-import { getProgressFromStatus } from "../../helpers/other-helper";
+// import { getProgressFromStatus } from "../../helpers/other-helper";
 import { BarTask } from "../../types/bar-task";
 
 const localeDateStringCache = {};
@@ -196,7 +196,7 @@ export const TaskListTableDefault: React.FC<{
               <input type="date" value={toLocaleDateString2(t.end)} onChange={(e) => {t.end = new Date(`${e.target.value}T00:00:00`); handleDateChange(t as BarTask); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} style={getInputStyle(t.taskType)} />
               {/* &nbsp;{toLocaleDateString(t.end, dateTimeOptions)} */}
             </div>
-            <div
+            {/* <div
               className={styles.taskListCell}
               style={{
                 minWidth: rowWidth,
@@ -222,7 +222,7 @@ export const TaskListTableDefault: React.FC<{
                 <option value={3}>Complete</option>
               </select>
               }
-            </div>
+            </div> */}
           </div>
         );
       })}
