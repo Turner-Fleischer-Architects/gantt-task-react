@@ -17,6 +17,7 @@ export type TaskListProps = {
   selectedTask: BarTask | undefined;
   setSelectedTask: (task: string) => void;
   onExpanderClick: (task: Task) => void;
+  onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
   updateTasks: (updatedTasks: Task[]) => void;
   TaskListHeader: React.FC<{
     headerHeight: number;
@@ -34,6 +35,7 @@ export type TaskListProps = {
     selectedTaskId: string;
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
+    onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
     updateTasks: (updatedTasks: Task[]) => void;
   }>;
 };
@@ -49,6 +51,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   selectedTask,
   setSelectedTask,
   onExpanderClick,
+  onDateChange,
   locale,
   ganttHeight,
   taskListRef,
@@ -81,6 +84,7 @@ export const TaskList: React.FC<TaskListProps> = ({
     selectedTaskId: selectedTaskId,
     setSelectedTask,
     onExpanderClick,
+    onDateChange,
     updateTasks
   };
 

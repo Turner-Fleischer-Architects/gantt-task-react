@@ -140,6 +140,7 @@ export interface StylingOption {
      */
     setSelectedTask: (taskId: string) => void;
     onExpanderClick: (task: Task) => void;
+    onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
     updateTasks: (updatedTasks: Task[]) => void;
   }>;
 }

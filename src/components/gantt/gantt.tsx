@@ -491,6 +491,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     taskListRef,
     setSelectedTask: handleSelectedTask,
     onExpanderClick: handleExpanderClick,
+    onDateChange: onDateChange,
     TaskListHeader,
     TaskListTable,
     updateTasks: wrapperSetBarTasks

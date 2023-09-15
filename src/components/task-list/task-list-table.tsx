@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import styles from "./task-list-table.module.css";
 import { Task } from "../../types/public-types";
 import { getProgressFromStatus } from "../../helpers/other-helper";
+import { BarTask } from "../../types/bar-task";
 
 const localeDateStringCache = {};
 
@@ -61,6 +62,7 @@ export const TaskListTableDefault: React.FC<{
   selectedTaskId: string;
   setSelectedTask: (taskId: string) => void;
   onExpanderClick: (task: Task) => void;
+  onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
   updateTasks: (updatedTasks: Task[]) => void;
 }> = ({
   rowHeight,
@@ -70,6 +72,7 @@ export const TaskListTableDefault: React.FC<{
   fontSize,
   locale,
   onExpanderClick,
+  onDateChange,
   updateTasks
 }) => {
   // const toLocaleDateString = useMemo(
@@ -81,6 +84,52 @@ export const TaskListTableDefault: React.FC<{
     () => toLocaleDateStringFactory2(locale),
     [locale]
   );
+
+  const handleDateChange = async (newChangedTask: BarTask) => {
+    if (onDateChange) {
+      try {
+        const result = await onDateChange(
+          newChangedTask,
+          newChangedTask.barChildren
+        );
+        if (result !== undefined) {
+          alert("Can't automatically update phase and model milestone's dates");
+        }
+      } catch (error) {
+        alert("Can't automatically update phase and model milestone's dates");
+      }
+    }
+  }
+
+  const getInputStyle = (taskType: string) => {
+    const styleObject = {
+      background: 'transparent', 
+      border: 0, 
+      outline: 0, 
+      fontWeight: '', 
+      fontSize: ''
+    };
+
+    switch (taskType) {
+      case 'modelMilestone':
+        styleObject.fontWeight = 'bold'; 
+        styleObject.fontSize = '1.1em';
+        break;
+    }
+
+    return styleObject;
+  }
+
+  const getInputIndentStyle = (taskType: string) => {
+    switch (taskType) {
+      case 'projectMilestone':
+        return {marginLeft: '10px'};
+      case 'subMilestone':
+        return {marginLeft: '15px'};
+      default:
+        return undefined;
+    }
+  }
 
   return (
     <div
@@ -121,9 +170,10 @@ export const TaskListTableDefault: React.FC<{
                   }
                   onClick={() => onExpanderClick(t)}
                 >
-                  {expanderSymbol}
+                  <span style={getInputIndentStyle(t.taskType)}></span>
+                  <span>{expanderSymbol}</span>
                 </div>
-                <div><input type='text' defaultValue={t.name} onChange={(e) => {t.name = e.target.value; updateTasks([...tasks])}} disabled={t.taskType === 'modelMilestone'} /></div>
+                <div><input type='text' defaultValue={t.name} onChange={(e) => {t.name = e.target.value; updateTasks([...tasks])}} disabled={t.taskType === 'modelMilestone'} style={getInputStyle(t.taskType)} /></div>
               </div>
             </div>
             <div
@@ -133,7 +183,7 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <input type="date" value={formatDate(t.start)} onChange={(e) => {t.start = new Date(`${e.target.value}T00:00:00`); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} />
+              <input type="date" value={formatDate(t.start)} onChange={(e) => {t.start = new Date(`${e.target.value}T00:00:00`); handleDateChange(t as BarTask); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} style={getInputStyle(t.taskType)} />
               {/* &nbsp;{toLocaleDateString(t.start, dateTimeOptions)}  */}
             </div>
             <div
@@ -143,7 +193,7 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <input type="date" value={toLocaleDateString2(t.end)} onChange={(e) => {t.end = new Date(`${e.target.value}T00:00:00`); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} />
+              <input type="date" value={toLocaleDateString2(t.end)} onChange={(e) => {t.end = new Date(`${e.target.value}T00:00:00`); handleDateChange(t as BarTask); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} style={getInputStyle(t.taskType)} />
               {/* &nbsp;{toLocaleDateString(t.end, dateTimeOptions)} */}
             </div>
             <div
