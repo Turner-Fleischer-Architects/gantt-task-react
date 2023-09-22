@@ -75,6 +75,14 @@ export interface EventOption {
    * Invokes on expander on task list
    */
   onExpanderClick?: (task: Task) => void;
+  /**
+   * Invokes on add task icon clicked
+   */
+  onAddTaskClick: (task: Task) => void;
+    /**
+   * Invokes on delete task icon clicked
+   */
+  onDeleteTaskClick: (task: Task) => void;
 }
 
 export interface DisplayOption {
@@ -147,4 +155,6 @@ export interface StylingOption {
 
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
+  addTaskIcon: React.ReactNode;
+  deleteTaskIcon: React.ReactNode;
 }

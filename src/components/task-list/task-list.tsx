@@ -19,6 +19,10 @@ export type TaskListProps = {
   onExpanderClick: (task: Task) => void;
   onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
   updateTasks: (updatedTasks: Task[]) => void;
+  onAddTaskClick: (task: Task) => void;
+  onDeleteTaskClick: (task: Task) => void;
+  addTaskIcon: React.ReactNode;
+  deleteTaskIcon: React.ReactNode;
   TaskListHeader: React.FC<{
     headerHeight: number;
     rowWidth: string;
@@ -37,6 +41,10 @@ export type TaskListProps = {
     onExpanderClick: (task: Task) => void;
     onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
     updateTasks: (updatedTasks: Task[]) => void;
+    onAddTaskClick: (task: Task) => void;
+    onDeleteTaskClick: (task: Task) => void;
+    addTaskIcon: React.ReactNode;
+    deleteTaskIcon: React.ReactNode;
   }>;
 };
 
@@ -58,7 +66,11 @@ export const TaskList: React.FC<TaskListProps> = ({
   horizontalContainerClass,
   TaskListHeader,
   TaskListTable,
-  updateTasks
+  updateTasks,
+  onAddTaskClick,
+  onDeleteTaskClick,
+  addTaskIcon,
+  deleteTaskIcon
 }) => {
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -85,7 +97,11 @@ export const TaskList: React.FC<TaskListProps> = ({
     setSelectedTask,
     onExpanderClick,
     onDateChange,
-    updateTasks
+    updateTasks,
+    onAddTaskClick,
+    onDeleteTaskClick,
+    addTaskIcon,
+    deleteTaskIcon
   };
 
   return (

@@ -65,7 +65,11 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   onClick,
   onDelete,
   onSelect,
-  onExpanderClick,
+  onExpanderClick,  
+  onAddTaskClick,
+  onDeleteTaskClick,
+  addTaskIcon,
+  deleteTaskIcon
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const taskListRef = useRef<HTMLDivElement>(null);
@@ -474,6 +478,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     onDoubleClick,
     onClick,
     onDelete,
+    onAddTaskClick,
+    onDeleteTaskClick
   };
 
   const tableProps: TaskListProps = {
@@ -494,7 +500,11 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     onDateChange: onDateChange,
     TaskListHeader,
     TaskListTable,
-    updateTasks: wrapperSetBarTasks
+    updateTasks: wrapperSetBarTasks,
+    onAddTaskClick,
+    onDeleteTaskClick,
+    addTaskIcon,
+    deleteTaskIcon
   };
   return (
     <div>

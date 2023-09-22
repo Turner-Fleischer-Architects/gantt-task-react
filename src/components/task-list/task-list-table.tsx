@@ -64,6 +64,10 @@ export const TaskListTableDefault: React.FC<{
   onExpanderClick: (task: Task) => void;
   onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
   updateTasks: (updatedTasks: Task[]) => void;
+  onAddTaskClick: (task: Task) => void;
+  onDeleteTaskClick: (task: Task) => void;
+  addTaskIcon: React.ReactNode;
+  deleteTaskIcon: React.ReactNode;
 }> = ({
   rowHeight,
   rowWidth,
@@ -73,7 +77,11 @@ export const TaskListTableDefault: React.FC<{
   locale,
   onExpanderClick,
   onDateChange,
-  updateTasks
+  updateTasks,
+  onAddTaskClick,
+  onDeleteTaskClick,
+  addTaskIcon,
+  deleteTaskIcon
 }) => {
   // const toLocaleDateString = useMemo(
   //   () => toLocaleDateStringFactory(locale),
@@ -162,6 +170,8 @@ export const TaskListTableDefault: React.FC<{
               title={t.name}
             >
               <div className={styles.taskListNameWrapper}>
+                {t.taskType !== 'subMilestone' && <span onClick={() => {onAddTaskClick(t)}} style={{fontSize: '1.5em'}} title={`Add ${t.taskType === 'modelMilestone' ? 'phase' : 'sub-milestone'}`}>{addTaskIcon ?? '+'}</span>}
+                {t.taskType !== 'modelMilestone' && <span onClick={() => {onDeleteTaskClick(t)}} style={{fontSize: '1.5em'}} title={`Delete ${t.taskType === 'projectMilestone' ? 'phase' : 'sub-milestone'}`}>{deleteTaskIcon ?? '-'}</span>}
                 <div
                   className={
                     expanderSymbol
