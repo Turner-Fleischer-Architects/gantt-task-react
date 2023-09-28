@@ -66,6 +66,14 @@ export const TaskListHeaderDefault: React.FC<{
             marginTop: headerHeight * 0.25,
           }}
         />
+        <div
+          className={styles.ganttTable_HeaderItem}
+          style={{
+            minWidth: '60px',
+          }}
+        >
+          &nbsp;Actions
+        </div>
         {/* <div
           className={styles.ganttTable_HeaderItem}
           style={{

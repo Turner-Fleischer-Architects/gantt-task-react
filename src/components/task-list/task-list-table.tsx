@@ -170,8 +170,6 @@ export const TaskListTableDefault: React.FC<{
               title={t.name}
             >
               <div className={styles.taskListNameWrapper}>
-                {t.taskType !== 'subMilestone' && <span onClick={() => {onAddTaskClick(t)}} style={{fontSize: '1.5em'}} title={`Add ${t.taskType === 'modelMilestone' ? 'phase' : 'sub-milestone'}`}>{addTaskIcon ?? '+'}</span>}
-                {t.taskType !== 'modelMilestone' && <span onClick={() => {onDeleteTaskClick(t)}} style={{fontSize: '1.5em'}} title={`Delete ${t.taskType === 'projectMilestone' ? 'phase' : 'sub-milestone'}`}>{deleteTaskIcon ?? '-'}</span>}
                 <div
                   className={
                     expanderSymbol
@@ -205,6 +203,18 @@ export const TaskListTableDefault: React.FC<{
             >
               <input type="date" value={toLocaleDateString2(t.end)} onChange={(e) => {t.end = new Date(`${e.target.value}T00:00:00`); handleDateChange(t as BarTask); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} style={getInputStyle(t.taskType)} />
               {/* &nbsp;{toLocaleDateString(t.end, dateTimeOptions)} */}
+            </div>
+            <div
+              className={styles.taskListCell}
+              style={{
+                minWidth: '60px',
+                maxWidth: '60px',
+              }}
+            >
+              <div style={{display: 'flex', justifyContent: 'center'}}>
+                {t.taskType !== 'subMilestone' && <span onClick={() => {onAddTaskClick(t)}} style={{fontSize: '1.5em', marginLeft: '2px', marginRight: '2px'}} title={`Add ${t.taskType === 'modelMilestone' ? 'phase' : 'sub-milestone'}`}>{addTaskIcon ?? '+'}</span>}
+                {t.taskType !== 'modelMilestone' && <span onClick={() => {onDeleteTaskClick(t)}} style={{fontSize: '1.5em', marginLeft: '2px', marginRight: '2px'}} title={`Delete ${t.taskType === 'projectMilestone' ? 'phase' : 'sub-milestone'}`}>{deleteTaskIcon ?? '-'}</span>}
+              </div>
             </div>
             {/* <div
               className={styles.taskListCell}
