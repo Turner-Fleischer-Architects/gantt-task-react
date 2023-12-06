@@ -508,6 +508,13 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   };
   return (
     <div>
+      <HorizontalScroll
+        svgWidth={svgWidth}
+        taskListWidth={taskListWidth}
+        scroll={scrollX}
+        rtl={rtl}
+        onScroll={handleScrollX}
+      />
       <div
         className={styles.wrapper}
         // onKeyDown={handleKeyDown} // TODO: Handle event on input and wrapper div seperately
