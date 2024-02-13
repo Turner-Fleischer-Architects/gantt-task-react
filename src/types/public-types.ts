@@ -18,6 +18,7 @@ export interface Task {
   end: Date;
   note: string;
   taskType: string;
+  isMilestone: boolean;
   status: number;
   /**
    * From 0 to 100
