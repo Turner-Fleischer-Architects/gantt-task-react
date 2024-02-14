@@ -70,6 +70,23 @@ export const TaskListHeaderDefault: React.FC<{
           className={styles.ganttTable_HeaderItem}
           style={{
             minWidth: '60px',
+            textAlign: 'center'
+          }}
+        >
+          &nbsp;<span title="Is Milestone?">MS</span>
+        </div>
+        <div
+          className={styles.ganttTable_HeaderSeparator}
+          style={{
+            height: headerHeight * 0.5,
+            marginTop: headerHeight * 0.25,
+          }}
+        />
+        <div
+          className={styles.ganttTable_HeaderItem}
+          style={{
+            minWidth: '60px',
+            textAlign: 'center'
           }}
         >
           &nbsp;Actions

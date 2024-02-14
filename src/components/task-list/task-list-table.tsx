@@ -212,6 +212,19 @@ export const TaskListTableDefault: React.FC<{
               }}
             >
               <div style={{display: 'flex', justifyContent: 'center'}}>
+                {t.taskType === 'subMilestone' &&
+                  <input type="checkbox" checked={t.isMilestone} onChange={(e) => {t.isMilestone = e.target.checked; t.type = e.target.checked ? 'milestone' : 'task'; t.end = e.target.checked ? new Date(t.start) : t.end; handleDateChange(t as BarTask); updateTasks([...tasks])}} />
+                }
+              </div>
+            </div>
+            <div
+              className={styles.taskListCell}
+              style={{
+                minWidth: '60px',
+                maxWidth: '60px',
+              }}
+            >
+              <div style={{display: 'flex', justifyContent: 'center'}}>
                 {t.taskType !== 'subMilestone' && <span onClick={() => {onAddTaskClick(t)}} style={{fontSize: '1.5em', marginLeft: '2px', marginRight: '2px'}} title={`Add ${t.taskType === 'modelMilestone' ? 'phase' : 'sub-milestone'}`}>{addTaskIcon ?? '+'}</span>}
                 {t.taskType !== 'modelMilestone' && <span onClick={() => {onDeleteTaskClick(t)}} style={{fontSize: '1.5em', marginLeft: '2px', marginRight: '2px'}} title={`Delete ${t.taskType === 'projectMilestone' ? 'phase' : 'sub-milestone'}`}>{deleteTaskIcon ?? '-'}</span>}
               </div>
