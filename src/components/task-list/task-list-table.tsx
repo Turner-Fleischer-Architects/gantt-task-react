@@ -181,7 +181,7 @@ export const TaskListTableDefault: React.FC<{
                   <span style={getInputIndentStyle(t.taskType)}></span>
                   <span>{expanderSymbol}</span>
                 </div>
-                <div><input type='text' defaultValue={t.name} onChange={(e) => {t.name = e.target.value; updateTasks([...tasks])}} disabled={t.taskType === 'modelMilestone'} style={getInputStyle(t.taskType)} /></div>
+                <div><input type='text' value={t.name} onChange={(e) => {t.name = e.target.value; updateTasks([...tasks])}} disabled={t.taskType === 'modelMilestone'} style={getInputStyle(t.taskType)} /></div>
               </div>
             </div>
             <div
