@@ -10,6 +10,16 @@ export enum ViewMode {
   Year = "Year",
 }
 export type TaskType = "task" | "milestone" | "project";
+
+// Used for Summary
+export interface Project {
+  tasks: Task[];
+  bxPId: string;
+  projectNumber: string;
+  projectName: string;
+  projectManager: string;
+}
+
 export interface Task {
   id: string;
   type: TaskType;
@@ -35,6 +45,32 @@ export interface Task {
   dependencies?: string[];
   hideChildren?: boolean;
   displayOrder?: number;
+}
+
+export interface SummaryEventOption {
+  /**
+   * Time step value for date changes.
+   */
+  timeStep?: number;
+  /**
+   * Invokes on bar select on unselect.
+   */
+  onSelect?: (task: Task, isSelected: boolean) => void;
+  /**
+   * Invokes on bar double click.
+   */
+  onDoubleClick?: (task: Task) => void;
+  /**
+   * Invokes on bar click.
+   */
+  onClick?: (task: Task) => void;
+  /**
+   * Invokes on end and start time change. Chart undoes operation if method return false or error.
+   */
+  onDateChange?: (
+    task: Task,
+    children: Task[]
+  ) => void | boolean | Promise<void> | Promise<boolean>;
 }
 
 export interface EventOption {
@@ -154,8 +190,60 @@ export interface StylingOption {
   }>;
 }
 
+export interface SummaryStylingOption {
+  headerHeight?: number;
+  columnWidth?: number;
+  listCellWidth?: string;
+  rowHeight?: number;
+  ganttHeight?: number;
+  barCornerRadius?: number;
+  handleWidth?: number;
+  fontFamily?: string;
+  fontSize?: string;
+  /**
+   * How many of row width can be taken by task.
+   * From 0 to 100
+   */
+  barFill?: number;
+  barProgressColor?: string;
+  barProgressSelectedColor?: string;
+  barBackgroundColor?: string;
+  barBackgroundSelectedColor?: string;
+  projectProgressColor?: string;
+  projectProgressSelectedColor?: string;
+  projectBackgroundColor?: string;
+  projectBackgroundSelectedColor?: string;
+  milestoneBackgroundColor?: string;
+  milestoneBackgroundSelectedColor?: string;
+  arrowColor?: string;
+  arrowIndent?: number;
+  todayColor?: string;
+  TooltipContent?: React.FC<{
+    task: Task;
+    fontSize: string;
+    fontFamily: string;
+  }>;
+  TaskListHeader?: React.FC<{
+    headerHeight: number;
+    rowWidth: string;
+    fontFamily: string;
+    fontSize: string;
+  }>;
+  TaskListTable?: React.FC<{
+    rowHeight: number;
+    rowWidth: string;
+    fontFamily: string;
+    fontSize: string;
+    projects: Project[];
+  }>;
+}
+
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
   addTaskIcon: React.ReactNode;
   deleteTaskIcon: React.ReactNode;
+}
+
+export interface GanttSummaryProps extends EventOption, DisplayOption, SummaryStylingOption {
+  projects: Project[];
 }
