@@ -8,16 +8,14 @@ const localeDateStringCache = {};
 
 function formatDate(date: Date) {
   var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
 
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
 
-  return [year, month, day].join('-');
+  return [year, month, day].join("-");
 }
 
 // const toLocaleDateStringFactory =
@@ -32,18 +30,16 @@ function formatDate(date: Date) {
 //     return lds;
 //   };
 
-  const toLocaleDateStringFactory2 =
-  (locale: string) =>
-  (date: Date) => {
-    locale = locale
-    const key = date.toString();
-    let lds = localeDateStringCache[key];
-    if (!lds) {
-      lds = formatDate(date);
-      localeDateStringCache[key] = lds;
-    }
-    return lds;
-  };
+const toLocaleDateStringFactory2 = (locale: string) => (date: Date) => {
+  locale = locale;
+  const key = date.toString();
+  let lds = localeDateStringCache[key];
+  if (!lds) {
+    lds = formatDate(date);
+    localeDateStringCache[key] = lds;
+  }
+  return lds;
+};
 
 // const dateTimeOptions: Intl.DateTimeFormatOptions = {
 //   weekday: "short",
@@ -62,7 +58,10 @@ export const TaskListTableDefault: React.FC<{
   selectedTaskId: string;
   setSelectedTask: (taskId: string) => void;
   onExpanderClick: (task: Task) => void;
-  onDateChange?: (task: Task, children: Task[]) => void | boolean | Promise<void> | Promise<boolean>;
+  onDateChange?: (
+    task: Task,
+    children: Task[]
+  ) => void | boolean | Promise<void> | Promise<boolean>;
   updateTasks: (updatedTasks: Task[]) => void;
   onAddTaskClick: (task: Task) => void;
   onDeleteTaskClick: (task: Task) => void;
@@ -81,7 +80,7 @@ export const TaskListTableDefault: React.FC<{
   onAddTaskClick,
   onDeleteTaskClick,
   addTaskIcon,
-  deleteTaskIcon
+  deleteTaskIcon,
 }) => {
   // const toLocaleDateString = useMemo(
   //   () => toLocaleDateStringFactory(locale),
@@ -107,37 +106,37 @@ export const TaskListTableDefault: React.FC<{
         alert("Can't automatically update phase and model milestone's dates");
       }
     }
-  }
+  };
 
   const getInputStyle = (taskType: string) => {
     const styleObject = {
-      background: 'transparent', 
-      border: 0, 
-      outline: 0, 
-      fontWeight: '', 
-      fontSize: ''
+      background: "transparent",
+      border: 0,
+      outline: 0,
+      fontWeight: "",
+      fontSize: "",
     };
 
     switch (taskType) {
-      case 'modelMilestone':
-        styleObject.fontWeight = 'bold'; 
-        styleObject.fontSize = '1.1em';
+      case "modelMilestone":
+        styleObject.fontWeight = "bold";
+        styleObject.fontSize = "1.1em";
         break;
     }
 
     return styleObject;
-  }
+  };
 
   const getInputIndentStyle = (taskType: string) => {
     switch (taskType) {
-      case 'projectMilestone':
-        return {marginLeft: '10px'};
-      case 'subMilestone':
-        return {marginLeft: '15px'};
+      case "projectMilestone":
+        return { marginLeft: "10px" };
+      case "subMilestone":
+        return { marginLeft: "15px" };
       default:
         return undefined;
     }
-  }
+  };
 
   return (
     <div
@@ -181,7 +180,18 @@ export const TaskListTableDefault: React.FC<{
                   <span style={getInputIndentStyle(t.taskType)}></span>
                   <span>{expanderSymbol}</span>
                 </div>
-                <div><input type='text' value={t.name} onChange={(e) => {t.name = e.target.value; updateTasks([...tasks])}} disabled={t.taskType === 'modelMilestone'} style={getInputStyle(t.taskType)} /></div>
+                <div>
+                  <input
+                    type="text"
+                    value={t.name}
+                    onChange={e => {
+                      t.name = e.target.value;
+                      updateTasks([...tasks]);
+                    }}
+                    disabled={t.taskType === "modelMilestone"}
+                    style={getInputStyle(t.taskType)}
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -191,7 +201,17 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <input type="date" value={formatDate(t.start)} onChange={(e) => {t.start = new Date(`${e.target.value}T00:00:00`); handleDateChange(t as BarTask); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone'} style={getInputStyle(t.taskType)} />
+              <input
+                type="date"
+                value={formatDate(t.start)}
+                onChange={e => {
+                  t.start = new Date(`${e.target.value}T00:00:00`);
+                  handleDateChange(t as BarTask);
+                  updateTasks([...tasks]);
+                }}
+                disabled={t.taskType !== "subMilestone"}
+                style={getInputStyle(t.taskType)}
+              />
               {/* &nbsp;{toLocaleDateString(t.start, dateTimeOptions)}  */}
             </div>
             <div
@@ -201,32 +221,88 @@ export const TaskListTableDefault: React.FC<{
                 maxWidth: rowWidth,
               }}
             >
-              <input type="date" value={toLocaleDateString2(t.end)} onChange={(e) => {t.end = new Date(`${e.target.value}T00:00:00`); handleDateChange(t as BarTask); updateTasks([...tasks])}} disabled={t.taskType !== 'subMilestone' || t.isMilestone} style={getInputStyle(t.taskType)} />
+              <input
+                type="date"
+                value={toLocaleDateString2(t.end)}
+                onChange={e => {
+                  t.end = new Date(`${e.target.value}T00:00:00`);
+                  handleDateChange(t as BarTask);
+                  updateTasks([...tasks]);
+                }}
+                disabled={t.taskType !== "subMilestone" || t.isMilestone}
+                style={getInputStyle(t.taskType)}
+              />
               {/* &nbsp;{toLocaleDateString(t.end, dateTimeOptions)} */}
             </div>
             <div
               className={styles.taskListCell}
               style={{
-                minWidth: '60px',
-                maxWidth: '60px',
+                minWidth: "60px",
+                maxWidth: "60px",
               }}
             >
-              <div style={{display: 'flex', justifyContent: 'center'}}>
-                {t.taskType === 'subMilestone' &&
-                  <input type="checkbox" checked={t.isMilestone} onChange={(e) => {t.isMilestone = e.target.checked; t.type = e.target.checked ? 'milestone' : 'task'; t.end = e.target.checked ? new Date(t.start) : t.end; handleDateChange(t as BarTask); updateTasks([...tasks])}} />
-                }
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {t.taskType === "subMilestone" && (
+                  <input
+                    type="checkbox"
+                    checked={t.isMilestone}
+                    onChange={e => {
+                      t.isMilestone = e.target.checked;
+                      t.type = e.target.checked ? "milestone" : "task";
+                      t.end = e.target.checked ? new Date(t.start) : t.end;
+                      handleDateChange(t as BarTask);
+                      updateTasks([...tasks]);
+                    }}
+                  />
+                )}
               </div>
             </div>
             <div
               className={styles.taskListCell}
               style={{
-                minWidth: '60px',
-                maxWidth: '60px',
+                minWidth: "60px",
+                maxWidth: "60px",
               }}
             >
-              <div style={{display: 'flex', justifyContent: 'center'}}>
-                {t.taskType !== 'subMilestone' && <span onClick={() => {onAddTaskClick(t)}} style={{fontSize: '1.5em', marginLeft: '2px', marginRight: '2px'}} title={`Add ${t.taskType === 'modelMilestone' ? 'phase' : 'sub-milestone'}`}>{addTaskIcon ?? '+'}</span>}
-                {t.taskType !== 'modelMilestone' && <span onClick={() => {onDeleteTaskClick(t)}} style={{fontSize: '1.5em', marginLeft: '2px', marginRight: '2px'}} title={`Delete ${t.taskType === 'projectMilestone' ? 'phase' : 'sub-milestone'}`}>{deleteTaskIcon ?? '-'}</span>}
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {t.taskType !== "subMilestone" && (
+                  <span
+                    onClick={() => {
+                      onAddTaskClick(t);
+                    }}
+                    style={{
+                      fontSize: "1.5em",
+                      marginLeft: "2px",
+                      marginRight: "2px",
+                    }}
+                    title={`Add ${
+                      t.taskType === "modelMilestone"
+                        ? "phase"
+                        : "Milestone"
+                    }`}
+                  >
+                    {addTaskIcon ?? "+"}
+                  </span>
+                )}
+                {t.taskType !== "modelMilestone" && (
+                  <span
+                    onClick={() => {
+                      onDeleteTaskClick(t);
+                    }}
+                    style={{
+                      fontSize: "1.5em",
+                      marginLeft: "2px",
+                      marginRight: "2px",
+                    }}
+                    title={`Delete ${
+                      t.taskType === "projectMilestone"
+                        ? "phase"
+                        : "sub-milestone"
+                    }`}
+                  >
+                    {deleteTaskIcon ?? "-"}
+                  </span>
+                )}
               </div>
             </div>
             {/* <div

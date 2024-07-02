@@ -27,7 +27,7 @@ export const TaskListHeaderDefault: React.FC<{
             minWidth: rowWidth,
           }}
         >
-          &nbsp;Milestones
+          &nbsp;Phase
         </div>
         <div
           className={styles.ganttTable_HeaderSeparator}
@@ -69,8 +69,8 @@ export const TaskListHeaderDefault: React.FC<{
         <div
           className={styles.ganttTable_HeaderItem}
           style={{
-            minWidth: '60px',
-            textAlign: 'center'
+            minWidth: "60px",
+            textAlign: "center",
           }}
         >
           &nbsp;<span title="Is Milestone?">MS</span>
@@ -85,8 +85,8 @@ export const TaskListHeaderDefault: React.FC<{
         <div
           className={styles.ganttTable_HeaderItem}
           style={{
-            minWidth: '60px',
-            textAlign: 'center'
+            minWidth: "60px",
+            textAlign: "center",
           }}
         >
           &nbsp;Actions
