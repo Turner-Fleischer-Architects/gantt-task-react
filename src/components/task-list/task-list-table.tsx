@@ -276,9 +276,7 @@ export const TaskListTableDefault: React.FC<{
                       marginRight: "2px",
                     }}
                     title={`Add ${
-                      t.taskType === "modelMilestone"
-                        ? "phase"
-                        : "Milestone"
+                      t.taskType === "modelMilestone" ? "Phase" : "Milestone"
                     }`}
                   >
                     {addTaskIcon ?? "+"}
@@ -295,9 +293,7 @@ export const TaskListTableDefault: React.FC<{
                       marginRight: "2px",
                     }}
                     title={`Delete ${
-                      t.taskType === "projectMilestone"
-                        ? "phase"
-                        : "sub-milestone"
+                      t.taskType === "projectMilestone" ? "Phase" : "Milestone"
                     }`}
                   >
                     {deleteTaskIcon ?? "-"}
