@@ -19,6 +19,10 @@ export const TaskListHeaderDefault: React.FC<{
         className={styles.ganttTable_Header}
         style={{
           height: headerHeight - 2,
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          background: "white",
         }}
       >
         <div
