@@ -13,19 +13,14 @@ export const TaskListHeaderDefault: React.FC<{
       style={{
         fontFamily: fontFamily,
         fontSize: fontSize,
-        height: "100%",
+        height: headerHeight - 2,
+        position: "sticky",
+        top: 0,
+        zIndex: 1,
+        background: "white",
       }}
     >
-      <div
-        className={styles.ganttTable_Header}
-        style={{
-          height: headerHeight - 2,
-          position: "sticky",
-          top: 0,
-          zIndex: 1,
-          background: "white",
-        }}
-      >
+      <div className={styles.ganttTable_Header} style={{}}>
         <div
           className={styles.ganttTable_HeaderItem}
           style={{
