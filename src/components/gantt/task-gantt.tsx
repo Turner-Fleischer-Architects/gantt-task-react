@@ -51,19 +51,13 @@ export const TaskGantt: React.FC<TaskGanttProps> = ({
       >
         <Calendar {...calendarProps} />
       </svg>
-      <div
-        ref={horizontalContainerRef}
-        className={styles.horizontalContainer}
-        style={
-          ganttHeight
-            ? { height: ganttHeight, width: gridProps.svgWidth }
-            : { width: gridProps.svgWidth }
-        }
-      >
+      <div ref={horizontalContainerRef} className={styles.horizontalContainer}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={gridProps.svgWidth}
-          height={barProps.rowHeight * barProps.tasks.length}
+          style={{
+            height: "100%",
+          }}
           fontFamily={barProps.fontFamily}
           ref={ganttSVGRef}
         >
