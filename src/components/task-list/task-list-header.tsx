@@ -85,7 +85,7 @@ export const TaskListHeaderDefault: React.FC<{
         <div
           className={styles.ganttTable_HeaderItem}
           style={{
-            minWidth: "60px",
+            minWidth: "5rem",
             textAlign: "center",
           }}
         >

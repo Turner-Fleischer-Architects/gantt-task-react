@@ -260,8 +260,7 @@ export const TaskListTableDefault: React.FC<{
             <div
               className={styles.taskListCell}
               style={{
-                minWidth: "60px",
-                maxWidth: "60px",
+                minWidth: "5rem",
               }}
             >
               <div style={{ display: "flex", justifyContent: "center" }}>
