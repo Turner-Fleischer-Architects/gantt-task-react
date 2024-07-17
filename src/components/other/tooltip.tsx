@@ -151,9 +151,9 @@ export const StandardTooltipContent: React.FC<{
         )} day(s)`}</p>
       )}
 
-      {/* <p className={styles.tooltipDefaultContainerParagraph}>
+      <p className={styles.tooltipDefaultContainerParagraph}>
         {!!task.progress && `Progress: ${task.progress} %`}
-      </p> */}
+      </p>
 
       <p className={styles.tooltipDefaultContainerParagraph}>
         {!!task.status && `Status: ${getStatusText(task.status)}`}
