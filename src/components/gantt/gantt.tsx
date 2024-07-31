@@ -21,7 +21,7 @@ import { BarTask } from "../../types/bar-task";
 import { convertToBarTasks } from "../../helpers/bar-helper";
 import { GanttEvent } from "../../types/gantt-task-actions";
 import { DateSetup } from "../../types/date-setup";
-import { HorizontalScroll } from "../other/horizontal-scroll";
+// import { HorizontalScroll } from "../other/horizontal-scroll";
 import { removeHiddenTasks, sortTasks } from "../../helpers/other-helper";
 import styles from "./gantt.module.css";
 
@@ -315,14 +315,14 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
     }
   };
 
-  const handleScrollX = (event: SyntheticEvent<HTMLDivElement>) => {
-    if (scrollX !== event.currentTarget.scrollLeft && !ignoreScrollEvent) {
-      setScrollX(event.currentTarget.scrollLeft);
-      setIgnoreScrollEvent(true);
-    } else {
-      setIgnoreScrollEvent(false);
-    }
-  };
+  // const handleScrollX = (event: SyntheticEvent<HTMLDivElement>) => {
+  //   if (scrollX !== event.currentTarget.scrollLeft && !ignoreScrollEvent) {
+  //     setScrollX(event.currentTarget.scrollLeft);
+  //     setIgnoreScrollEvent(true);
+  //   } else {
+  //     setIgnoreScrollEvent(false);
+  //   }
+  // };
 
     // make wrapper function to give child
     const wrapperSetBarTasks = useCallback((newTasks: Task[]) => {
@@ -508,13 +508,13 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   };
   return (
     <div>
-      <HorizontalScroll
+      {/* <HorizontalScroll
         svgWidth={svgWidth}
         taskListWidth={taskListWidth}
         scroll={scrollX}
         rtl={rtl}
         onScroll={handleScrollX}
-      />
+      /> */}
       <div
         className={styles.wrapper}
         // onKeyDown={handleKeyDown} // TODO: Handle event on input and wrapper div seperately
@@ -557,13 +557,13 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
           rtl={rtl}
         />
       </div>
-      <HorizontalScroll
+      {/* <HorizontalScroll
         svgWidth={svgWidth}
         taskListWidth={taskListWidth}
         scroll={scrollX}
         rtl={rtl}
         onScroll={handleScrollX}
-      />
+      /> */}
     </div>
   );
 };
