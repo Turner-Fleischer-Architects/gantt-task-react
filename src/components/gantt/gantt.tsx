@@ -189,6 +189,9 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
       }
       setCurrentViewDate(viewDate);
       setScrollX(columnWidth * index);
+      if (wrapperRef?.current) {
+        wrapperRef.current.scrollLeft = columnWidth * index;
+      }
     }
   }, [
     viewDate,
