@@ -11,22 +11,22 @@ export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
     : task.styles.progressColor;
   const projectWith = task.x2 - task.x1;
 
-  const projectLeftTriangle = [
-    task.x1,
-    task.y + task.height / 2 - 1,
-    task.x1,
-    task.y + task.height,
-    task.x1 + 15,
-    task.y + task.height / 2 - 1,
-  ].join(",");
-  const projectRightTriangle = [
-    task.x2,
-    task.y + task.height / 2 - 1,
-    task.x2,
-    task.y + task.height,
-    task.x2 - 15,
-    task.y + task.height / 2 - 1,
-  ].join(",");
+  // const projectLeftTriangle = [
+  //   task.x1,
+  //   task.y + task.height / 2 - 1,
+  //   task.x1,
+  //   task.y + task.height,
+  //   task.x1 + 15,
+  //   task.y + task.height / 2 - 1,
+  // ].join(",");
+  // const projectRightTriangle = [
+  //   task.x2,
+  //   task.y + task.height / 2 - 1,
+  //   task.x2,
+  //   task.y + task.height,
+  //   task.x2 - 15,
+  //   task.y + task.height / 2 - 1,
+  // ].join(",");
 
   return (
     <g tabIndex={0} className={styles.projectWrapper}>
@@ -49,7 +49,7 @@ export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
         rx={task.barCornerRadius}
         fill={processColor}
       />
-      <rect
+      {/* <rect
         fill={barColor}
         x={task.x1}
         width={projectWith}
@@ -68,7 +68,7 @@ export const Project: React.FC<TaskItemProps> = ({ task, isSelected }) => {
         className={styles.projectTop}
         points={projectRightTriangle}
         fill={barColor}
-      />
+      /> */}
     </g>
   );
 };
