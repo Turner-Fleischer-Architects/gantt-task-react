@@ -13,7 +13,7 @@ import { CalendarProps } from "../calendar/calendar";
 import { TaskGanttContentProps } from "./task-gantt-content";
 import { TaskListHeaderDefault } from "../task-list/task-list-header";
 import { TaskListTableDefault } from "../task-list/task-list-table";
-import { StandardTooltipContent, Tooltip } from "../other/tooltip";
+// import { StandardTooltipContent, Tooltip } from "../other/tooltip";
 import { VerticalScroll } from "../other/vertical-scroll";
 import { TaskListProps, TaskList } from "../task-list/task-list";
 import { TaskGantt } from "./task-gantt";
@@ -56,7 +56,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   arrowIndent = 20,
   todayColor = "rgba(252, 248, 227, 0.5)",
   viewDate,
-  TooltipContent = StandardTooltipContent,
+  // TooltipContent = StandardTooltipContent,
   TaskListHeader = TaskListHeaderDefault,
   TaskListTable = TaskListTableDefault,
   onDateChange,
@@ -82,8 +82,8 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   );
 
   const [taskListWidth, setTaskListWidth] = useState(0);
-  const [svgContainerWidth, setSvgContainerWidth] = useState(0);
-  const [svgContainerHeight, setSvgContainerHeight] = useState(ganttHeight);
+  // const [svgContainerWidth, setSvgContainerWidth] = useState(0);
+  // const [svgContainerHeight, setSvgContainerHeight] = useState(ganttHeight);
   const [barTasks, setBarTasks] = useState<BarTask[]>([]);
   const [ganttEvent, setGanttEvent] = useState<GanttEvent>({
     action: "",
@@ -250,18 +250,18 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
   }, [taskListRef, listCellWidth]);
 
   useEffect(() => {
-    if (wrapperRef.current) {
-      setSvgContainerWidth(wrapperRef.current.offsetWidth - taskListWidth);
-    }
+    // if (wrapperRef.current) {
+    //   // setSvgContainerWidth(wrapperRef.current.offsetWidth - taskListWidth);
+    // }
   }, [wrapperRef, taskListWidth]);
 
-  useEffect(() => {
-    if (ganttHeight) {
-      setSvgContainerHeight(ganttHeight + headerHeight);
-    } else {
-      setSvgContainerHeight(tasks.length * rowHeight + headerHeight);
-    }
-  }, [ganttHeight, tasks, headerHeight, rowHeight]);
+  // useEffect(() => {
+  //   if (ganttHeight) {
+  //     // setSvgContainerHeight(ganttHeight + headerHeight);
+  //   } else {
+  //     // setSvgContainerHeight(tasks.length * rowHeight + headerHeight);
+  //   }
+  // }, [ganttHeight, tasks, headerHeight, rowHeight]);
 
   // scroll events
   useEffect(() => {
@@ -533,7 +533,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
           scrollY={scrollY}
           scrollX={scrollX}
         />
-        {ganttEvent.changedTask && (
+        {/* {ganttEvent.changedTask && (
           <Tooltip
             arrowIndent={arrowIndent}
             rowHeight={rowHeight}
@@ -550,7 +550,7 @@ export const Gantt: React.FunctionComponent<GanttProps> = ({
             rtl={rtl}
             svgWidth={svgWidth}
           />
-        )}
+        )} */}
         <VerticalScroll
           ganttFullHeight={ganttFullHeight}
           ganttHeight={ganttHeight}

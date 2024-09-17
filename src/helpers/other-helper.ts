@@ -70,3 +70,16 @@ export function getProgressFromStatus(status: Number) {
       return 0;
   }
 }
+
+export const getStatusText = (statusCode: Number) => {
+  switch (statusCode){
+    case 1:
+      return 'Not Started';
+    case 2:
+      return 'In Progress';
+    case 3:
+      return 'Complete';
+    default:
+      return '';
+  }
+}
