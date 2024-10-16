@@ -253,7 +253,7 @@ export const TaskListTableDefault: React.FC<{
               }}
             >
               <div style={{ display: "flex", justifyContent: "center" }}>
-                {t.taskType !== "subMilestone" && (
+                {
                   <span
                     onClick={() => {
                       onAddTaskClick(t);
@@ -264,12 +264,16 @@ export const TaskListTableDefault: React.FC<{
                       marginRight: "2px",
                     }}
                     title={`Add ${
-                      t.taskType === "modelMilestone" ? "Phase" : "Milestone"
+                      t.taskType === "modelMilestone"
+                        ? "Phase"
+                        : t.taskType === "projectMilestone"
+                        ? "Phase / Milestone"
+                        : "Milestone"
                     }`}
                   >
                     {addTaskIcon ?? "+"}
                   </span>
-                )}
+                }
                 {t.taskType !== "modelMilestone" && (
                   <span
                     onClick={() => {
