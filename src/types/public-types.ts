@@ -116,10 +116,14 @@ export interface EventOption {
    * Invokes on add task icon clicked
    */
   onAddTaskClick: (task: Task) => void;
-    /**
+  /**
    * Invokes on delete task icon clicked
    */
   onDeleteTaskClick: (task: Task) => void;
+  /**
+   * Invokes on move task icon clicked
+   */
+  onMoveTaskClick: (task: Task) => void;
 }
 
 export interface DisplayOption {
@@ -242,6 +246,7 @@ export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
   addTaskIcon: React.ReactNode;
   deleteTaskIcon: React.ReactNode;
+  moveTaskIcon: React.ReactNode;
 }
 
 export interface GanttSummaryProps extends EventOption, DisplayOption, SummaryStylingOption {

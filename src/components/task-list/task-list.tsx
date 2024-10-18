@@ -21,8 +21,10 @@ export type TaskListProps = {
   updateTasks: (updatedTasks: Task[]) => void;
   onAddTaskClick: (task: Task) => void;
   onDeleteTaskClick: (task: Task) => void;
+  onMoveTaskClick: (task: Task) => void;
   addTaskIcon: React.ReactNode;
   deleteTaskIcon: React.ReactNode;
+  moveTaskIcon: React.ReactNode;
   TaskListHeader: React.FC<{
     headerHeight: number;
     rowWidth: string;
@@ -43,8 +45,10 @@ export type TaskListProps = {
     updateTasks: (updatedTasks: Task[]) => void;
     onAddTaskClick: (task: Task) => void;
     onDeleteTaskClick: (task: Task) => void;
+    onMoveTaskClick: (task: Task) => void;
     addTaskIcon: React.ReactNode;
     deleteTaskIcon: React.ReactNode;
+    moveTaskIcon: React.ReactNode;
   }>;
 };
 
@@ -69,8 +73,10 @@ export const TaskList: React.FC<TaskListProps> = ({
   updateTasks,
   onAddTaskClick,
   onDeleteTaskClick,
+  onMoveTaskClick,
   addTaskIcon,
-  deleteTaskIcon
+  deleteTaskIcon,
+  moveTaskIcon,
 }) => {
   const horizontalContainerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -100,8 +106,10 @@ export const TaskList: React.FC<TaskListProps> = ({
     updateTasks,
     onAddTaskClick,
     onDeleteTaskClick,
+    onMoveTaskClick,
     addTaskIcon,
-    deleteTaskIcon
+    deleteTaskIcon,
+    moveTaskIcon,
   };
 
   return (

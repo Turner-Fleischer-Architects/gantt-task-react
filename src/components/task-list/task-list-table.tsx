@@ -54,8 +54,10 @@ export const TaskListTableDefault: React.FC<{
   updateTasks: (updatedTasks: Task[]) => void;
   onAddTaskClick: (task: Task) => void;
   onDeleteTaskClick: (task: Task) => void;
+  onMoveTaskClick: (task: Task) => void;
   addTaskIcon: React.ReactNode;
   deleteTaskIcon: React.ReactNode;
+  moveTaskIcon: React.ReactNode;
 }> = ({
   rowHeight,
   rowWidth,
@@ -68,8 +70,10 @@ export const TaskListTableDefault: React.FC<{
   updateTasks,
   onAddTaskClick,
   onDeleteTaskClick,
+  onMoveTaskClick,
   addTaskIcon,
   deleteTaskIcon,
+  moveTaskIcon,
 }) => {
   // const toLocaleDateString = useMemo(
   //   () => toLocaleDateStringFactory(locale),
@@ -289,6 +293,23 @@ export const TaskListTableDefault: React.FC<{
                     }`}
                   >
                     {deleteTaskIcon ?? "-"}
+                  </span>
+                )}
+                {t.taskType !== "modelMilestone" && (
+                  <span
+                    onClick={() => {
+                      onMoveTaskClick(t);
+                    }}
+                    style={{
+                      fontSize: "1.5em",
+                      marginLeft: "2px",
+                      marginRight: "2px",
+                    }}
+                    title={`Move ${
+                      t.taskType === "projectMilestone" ? "Phase" : "Milestone"
+                    }`}
+                  >
+                    {moveTaskIcon ?? "↳"}
                   </span>
                 )}
               </div>
